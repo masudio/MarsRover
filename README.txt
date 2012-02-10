@@ -1,7 +1,11 @@
-TO RUN TESTS:
+TO COMPILE ANDRUN TESTS:
 
 >./build.bat test
 
+TO COMPILE AND RUN PROGRAM:
+
+>./build.bat run.compile
+>./build/MarsRover.exe SampleInput.txt
 
 
 PROBLEM THREE: MARS ROVERS

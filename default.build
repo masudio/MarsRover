@@ -57,5 +57,12 @@
 			workingdir="${build.dir}"
 			commandline="${build.dir}/${project::get-name()}.test.dll /xml=&quot;test.results.xml&quot; /labels /noshadow /nologo /nodots" />
 	</target>
+	<target name="run.compile" depends="init" >
+		<csc target="exe" output="${build.dir}/${project::get-name()}.exe" >
+			<sources>
+				<include name="${src.dir}/app/**/*.cs" />
+			</sources>
+		</csc>
+	</target>
 </project>
 

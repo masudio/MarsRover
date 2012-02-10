@@ -9,3 +9,5 @@ _ReSharper.*
 *~
 *.swp
 *.swo
+*.log
+build
