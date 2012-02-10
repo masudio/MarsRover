@@ -1,0 +1,61 @@
+ <project name="MarsRover" >
+
+	<property name="base.dir" value="${project::get-base-directory()}" />
+	<property name="src.dir" value="${base.dir}/src" />
+	<property name="tools.dir" value="${base.dir}/tools" />
+	<property name="build.dir" value="${base.dir}/build" />
+	<property name="debug" value="Enable" />
+
+	<target name="clean" >
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="init" depends="clean" >
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="compile" depends="init" >
+		<csc target="library" output="${build.dir}/${project::get-name()}.dll" debug="${debug}" >
+			<sources>
+				<include name="${src.dir}/app/**/*.cs" />
+				<exclude name="${src.dir}/app/**/AssemblyInfo.cs" />
+			</sources>
+			<references>
+			</references>
+		</csc>	
+	</target>
+
+	<target name="test.compile" depends="compile" >
+		<csc target="library" output="${build.dir}/${project::get-name()}.test.dll" debug="${debug}" >
+			<sources>
+				<include name="${src.dir}/test/**/*.cs" />
+				<exclude name="${src.dir}/test/**/AssemblyInfo.cs" />
+			</sources>
+			<references>
+				<include name="${tools.dir}/nunit/bin/net-2.0/nunit.framework.dll" />
+				<include name="${tools.dir}/rhinomocks/Rhino.Mocks.dll" />
+				<include name="${build.dir}/${project::get-name()}.dll" />
+			</references>
+		</csc>
+	</target>
+
+	<target name="test" depends="test.compile" >
+		<copy todir="${build.dir}" flatten="true" >
+			<fileset basedir="${tools.dir}" >
+				<include name="${tools.dir}/nunit/bin/net-2.0/*.dll" />
+				<include name="${tools.dir}/nunit/bin/net-2.0/lib/*.dll" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}" flatten="true" >
+			<fileset basedir="${tools.dir}" >
+				<include name="${tools.dir}/rhinomocks/*.dll" />
+			</fileset>
+		</copy>
+
+		<exec
+			program="${tools.dir}/nunit/bin/net-2.0/nunit-console.exe"
+			workingdir="${build.dir}"
+			commandline="${build.dir}/${project::get-name()}.test.dll /xml=&quot;test.results.xml&quot; /labels /noshadow /nologo /nodots" />
+	</target>
+</project>
+

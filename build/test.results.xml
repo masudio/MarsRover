@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="D:\development\C#Stuff\MarsRover\build\MarsRover.test.dll" total="12" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2012-02-10" time="11:26:05">
+  <environment nunit-version="2.5.10.11092" clr-version="4.0.30319.239" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="D:\development\C#Stuff\MarsRover\build" machine-name="MASUDIO-PC" user="masudio" user-domain="masudio-PC" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="D:\development\C#Stuff\MarsRover\build\MarsRover.test.dll" executed="True" result="Success" success="True" time="0.394" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="test" executed="True" result="Success" success="True" time="0.385" asserts="0">
+        <results>
+          <test-suite type="TestFixture" name="DataParserTests" executed="True" result="Inconclusive" success="False" time="0.009" asserts="0" />
+          <test-suite type="TestFixture" name="RoverCommandFactoryTests" executed="True" result="Success" success="True" time="0.276" asserts="0">
+            <results>
+              <test-case name="test.RoverCommandFactoryTests.Should_Pass" executed="True" result="Success" success="True" time="0.023" asserts="0">
+                <reason>
+                  <message><![CDATA[]]></message>
+                </reason>
+              </test-case>
+              <test-case name="test.RoverCommandFactoryTests.Should_Return_New_Rover_Command_Object" executed="True" result="Success" success="True" time="0.246" asserts="1" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="RoverCommandTests" executed="True" result="Success" success="True" time="0.076" asserts="0">
+            <results>
+              <test-case name="test.RoverCommandTests.GetAllRoverLocations_Should_Return_Original_Locations" executed="True" result="Success" success="True" time="0.073" asserts="1" />
+              <test-case name="test.RoverCommandTests.Should_Create_RoverCommand" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="RoverTests" executed="True" result="Success" success="True" time="0.013" asserts="0">
+            <results>
+              <test-case name="test.RoverTests.CurrentPosition_Should_Return_Current_Position" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="test.RoverTests.GetX_Should_Return_X_Value" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+              <test-case name="test.RoverTests.GetY_Should_Return_Y_Value" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+              <test-case name="test.RoverTests.Go_Should_Change_Current_Position" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="test.RoverTests.Go_Should_Kill_Rover_If_It_Goes_Off_Of_Plateau" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+              <test-case name="test.RoverTests.Go_Should_Not_Throw_When_Lower_Case_Input_Given" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+              <test-case name="test.RoverTests.Rover_Can_Be_At_Very_Edge_Of_Plateau" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="test.RoverTests.Rover_Stays_Dead_Even_If_Instructions_Bring_It_Back_On_To_Plateau" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
