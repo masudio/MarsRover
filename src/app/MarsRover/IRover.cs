@@ -14,7 +14,8 @@ namespace MarsRover
     {
         private int x, y;
         private readonly int gridXMax, gridYMax;
-        private char facing;
+        private char facingOld;
+        private Facing facing;
         private bool dead;
         private readonly char[] instructions;
 
@@ -24,7 +25,7 @@ namespace MarsRover
             this.y = y;
             this.gridXMax = gridXMax;
             this.gridYMax = gridYMax;
-            this.facing = facing.ToUpper()[0];
+            SetFacing(facing.ToUpper()[0]);
             this.instructions = instructions.ToUpper().ToCharArray();
 
             dead = false;
@@ -33,6 +34,16 @@ namespace MarsRover
             {
                 dead = true;
             }
+        }
+
+        private char GetFacing()
+        {
+            return facing.GetFacing();
+        }
+
+        private void SetFacing(char newDirection)
+        {
+            facing = Facing.NewDirection(newDirection);
         }
 
         public void Go()
@@ -45,7 +56,7 @@ namespace MarsRover
 
         public string CurrentPosition()
         {
-            return dead ? "DEAD" : x + " " + y + " " + facing;
+            return dead ? "DEAD" : x + " " + y + " " + GetFacing();
         }
 
         public int GetX()
@@ -68,33 +79,33 @@ namespace MarsRover
             switch (instruction)
             {
                 case 'L':
-                    if ('N' == facing)
-                        facing = 'W';
-                    else if ('E' == facing)
-                        facing = 'N';
-                    else if ('S' == facing)
-                        facing = 'E';
-                    else if ('W' == facing)
-                        facing = 'S';
+                    if (Facing.North == GetFacing())
+                        SetFacing(Facing.West);
+                    else if (Facing.East == GetFacing())
+                        SetFacing(Facing.North);
+                    else if (Facing.South == GetFacing())
+                        SetFacing(Facing.East);
+                    else if (Facing.West == GetFacing())
+                        SetFacing(Facing.South);
                     break;
                 case 'R':
-                    if ('N' == facing)
-                        facing = 'E';
-                    else if ('E' == facing)
-                        facing = 'S';
-                    else if ('S' == facing)
-                        facing = 'W';
-                    else if ('W' == facing)
-                        facing = 'N';
+                    if (Facing.North == GetFacing())
+                        SetFacing(Facing.East);
+                    else if (Facing.East == GetFacing())
+                        SetFacing(Facing.South);
+                    else if (Facing.South == GetFacing())
+                        SetFacing(Facing.West);
+                    else if (Facing.West == GetFacing())
+                        SetFacing(Facing.North);
                     break;
                 case 'M':
-                    if ('N' == facing)
+                    if (Facing.North == GetFacing())
                         y++;
-                    else if ('E' == facing)
+                    else if (Facing.East == GetFacing())
                         x++;
-                    else if ('S' == facing)
+                    else if (Facing.South == GetFacing())
                         y--;
-                    else if ('W' == facing)
+                    else if (Facing.West == GetFacing())
                         x--;
                     break;
                 default:

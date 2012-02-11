@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataParser.cs" />
+    <Compile Include="Facing.cs" />
     <Compile Include="IRover.cs" />
     <Compile Include="IRoverCommand.cs" />
     <Compile Include="Program.cs" />
