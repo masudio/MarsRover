@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MarsRover
 {
@@ -18,8 +19,9 @@ namespace MarsRover
          */
         public RoverCommand(string[] input, IRoverFactory roverFactory)
         {
-            int gridXMax = Convert.ToInt32(input[0].Split(' ')[0]);
-            int gridYMax = Convert.ToInt32(input[0].Split(' ')[1]);
+            MatchCollection mc = Regex.Matches(input[0], @"([0-9]+)");
+            int gridXMax = Convert.ToInt32(mc[0].Value);
+            int gridYMax = Convert.ToInt32(mc[1].Value);
 
             rovers = new List<IRover>();
             for(int i = 1; i < input.Length; i+=2)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MarsRover
 {
@@ -12,14 +13,8 @@ namespace MarsRover
 
         public static Instruction[] GetInstructions(string instructions)
         {
-            var toReturn = new Instruction[instructions.Length];
-            
-            for(int i = 0; i < instructions.Length; i++)
-            {
-                toReturn[i] = Instruction.NewInstruction(instructions[i]);
-            }
-
-            return toReturn;
+            return (from instruction in instructions
+                        select NewInstruction(instruction)).ToArray();
         }
 
         private static Instruction NewInstruction(char instruction)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace MarsRover
 {
@@ -13,10 +14,10 @@ namespace MarsRover
 
         public IRover GetRover(string locationString, string instructionsString, int gridXMax, int gridYMax)
         {
-            string[] locationSplit = locationString.Split(' ');
-            int x = Convert.ToInt32(locationSplit[0]);
-            int y = Convert.ToInt32(locationSplit[1]);
-            string facing = locationSplit[2];
+            MatchCollection matchCollection = Regex.Matches(locationString, @"([a-zA-Z0-9]+)");
+            int x = Convert.ToInt32(matchCollection[0].Value);
+            int y = Convert.ToInt32(matchCollection[1].Value);
+            string facing = matchCollection[2].Value;
 
             return new Rover(x, y, facing, instructionsString, gridXMax, gridYMax);
         }
