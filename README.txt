@@ -1,4 +1,4 @@
-TO COMPILE ANDRUN TESTS:
+TO COMPILE AND RUN TESTS:
 
 >./build.bat test
 
