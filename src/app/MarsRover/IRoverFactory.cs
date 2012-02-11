@@ -9,6 +9,8 @@ namespace MarsRover
 
     public class RoverFactory : IRoverFactory
     {
+        private static readonly IRoverFactory Factory = new RoverFactory();
+
         public IRover GetRover(string locationString, string instructionsString, int gridXMax, int gridYMax)
         {
             string[] locationSplit = locationString.Split(' ');
@@ -21,7 +23,7 @@ namespace MarsRover
 
         public static IRoverFactory GetFactory()
         {
-            return new RoverFactory();
+            return Factory;
         }
     }
 }

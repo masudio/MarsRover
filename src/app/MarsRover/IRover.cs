@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MarsRover
+﻿namespace MarsRover
 {
     public interface IRover
     {
@@ -8,16 +6,20 @@ namespace MarsRover
         string CurrentPosition();
         int GetY();
         int GetX();
+        void SetFacing(char direction);
+        void MoveNorth();
+        void MoveEast();
+        void MoveSouth();
+        void MoveWest();
     }
 
     public class Rover : IRover
     {
         private int x, y;
         private readonly int gridXMax, gridYMax;
-        private char facingOld;
         private Facing facing;
         private bool dead;
-        private readonly char[] instructions;
+        private readonly Instruction[] instructions;
 
         public Rover(int x, int y, string facing, string instructions, int gridXMax, int gridYMax)
         {
@@ -26,11 +28,11 @@ namespace MarsRover
             this.gridXMax = gridXMax;
             this.gridYMax = gridYMax;
             SetFacing(facing.ToUpper()[0]);
-            this.instructions = instructions.ToUpper().ToCharArray();
+            this.instructions = Instruction.GetInstructions(instructions.ToUpper());
 
             dead = false;
-            if( 0 > x || gridXMax < x ||
-                0 > y || gridYMax < y )
+            if (0 > x || gridXMax < x ||
+                0 > y || gridYMax < y)
             {
                 dead = true;
             }
@@ -41,16 +43,27 @@ namespace MarsRover
             return facing.GetFacing();
         }
 
-        private void SetFacing(char newDirection)
+        public void SetFacing(char direction)
         {
-            facing = Facing.NewDirection(newDirection);
+            facing = Facing.NewFacing(direction);
         }
 
         public void Go()
         {
             foreach (var instruction in instructions)
             {
+                if (dead)
+                {
+                    return;
+                }
+
                 Execute(instruction);
+
+                if (0 > x || gridXMax < x ||
+                    0 > y || gridYMax < y)
+                {
+                    dead = true;
+                }
             }
         }
 
@@ -61,63 +74,37 @@ namespace MarsRover
 
         public int GetX()
         {
-            return this.x;
+            return x;
         }
 
         public int GetY()
         {
-            return this.y;
+            return y;
         }
 
-        private void Execute(char instruction)
+        private void Execute(Instruction instruction)
         {
-            if(dead)
-            {
-                return;
-            }
+            facing.Execute(this, instruction);
+        }
 
-            switch (instruction)
-            {
-                case 'L':
-                    if (Facing.North == GetFacing())
-                        SetFacing(Facing.West);
-                    else if (Facing.East == GetFacing())
-                        SetFacing(Facing.North);
-                    else if (Facing.South == GetFacing())
-                        SetFacing(Facing.East);
-                    else if (Facing.West == GetFacing())
-                        SetFacing(Facing.South);
-                    break;
-                case 'R':
-                    if (Facing.North == GetFacing())
-                        SetFacing(Facing.East);
-                    else if (Facing.East == GetFacing())
-                        SetFacing(Facing.South);
-                    else if (Facing.South == GetFacing())
-                        SetFacing(Facing.West);
-                    else if (Facing.West == GetFacing())
-                        SetFacing(Facing.North);
-                    break;
-                case 'M':
-                    if (Facing.North == GetFacing())
-                        y++;
-                    else if (Facing.East == GetFacing())
-                        x++;
-                    else if (Facing.South == GetFacing())
-                        y--;
-                    else if (Facing.West == GetFacing())
-                        x--;
-                    break;
-                default:
-                    throw new Exception();
-            }
+        public void MoveNorth()
+        {
+            y++;
+        }
 
-            
-            if( 0 > x || gridXMax < x ||
-                0 > y || gridYMax < y )
-            {
-                dead = true;
-            }
+        public void MoveEast()
+        {
+            x++;
+        }
+
+        public void MoveSouth()
+        {
+            y--;
+        }
+
+        public void MoveWest()
+        {
+            x--;
         }
     }
 }

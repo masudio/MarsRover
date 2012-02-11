@@ -47,6 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataParserTests.cs" />
+    <Compile Include="FacingEastTests.cs" />
+    <Compile Include="FacingNorthTests.cs" />
+    <Compile Include="FacingSouthTests.cs" />
+    <Compile Include="FacingTests.cs" />
+    <Compile Include="FacingWestTests.cs" />
     <Compile Include="RoverCommandFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoverCommandTests.cs" />

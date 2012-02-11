@@ -66,7 +66,7 @@ namespace test
         }
 
         [Test]
-        public void Go_Should_Kill_Rover_If_It_Goes_Off_Of_Plateau()
+        public void Go_Should_Kill_Rover_If_It_Goes_Off_North_Edge_Plateau()
         {
             sut = new Rover(10, 10, "N", "M", 10, 10);
 
@@ -76,6 +76,38 @@ namespace test
             Assert.AreEqual("DEAD", result);
         }
 
+        [Test]
+        public void Go_Should_Kill_Rover_If_It_Goes_Off_East_Edge_Plateau()
+        {
+            sut = new Rover(10, 10, "E", "M", 10, 10);
+
+            sut.Go();
+            string result = sut.CurrentPosition();
+
+            Assert.AreEqual("DEAD", result);
+        }
+
+        [Test]
+        public void Go_Should_Kill_Rover_If_It_Goes_Off_West_Edge_Plateau()
+        {
+            sut = new Rover(0, 10, "W", "M", 10, 10);
+
+            sut.Go();
+            string result = sut.CurrentPosition();
+
+            Assert.AreEqual("DEAD", result);
+        }
+
+        [Test]
+        public void Go_Should_Kill_Rover_If_It_Goes_Off_South_Edge_Plateau()
+        {
+            sut = new Rover(10, 0, "S", "M", 10, 10);
+
+            sut.Go();
+            string result = sut.CurrentPosition();
+
+            Assert.AreEqual("DEAD", result);
+        }
         [Test]
         public void Rover_Stays_Dead_Even_If_Instructions_Bring_It_Back_On_To_Plateau()
         {

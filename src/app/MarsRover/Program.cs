@@ -20,7 +20,7 @@ namespace MarsRover
         static void Main(string[] args)
         {
             CheckArgs(args);
-            string[] input = DataParser.Parse(args[0]);
+            string[] input = DataParser.Parse(args[0], StreamReaderFactory.GetFactory());
             RoverCommandFactory.CreateRoverCommandFrom(input, RoverFactory.GetFactory());
             IRoverCommand roverCommand = RoverCommandFactory.GetRoverCommand();
             roverCommand.AllRoversGo();

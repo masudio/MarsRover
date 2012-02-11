@@ -10,8 +10,9 @@ namespace MarsRover
         public const char West = 'W';
 
         public abstract char GetFacing();
+        public abstract void Execute(IRover rover, Instruction instruction);
 
-        public static Facing NewDirection(char newDirection)
+        public static Facing NewFacing(char newDirection)
         {
             switch (newDirection)
             {
@@ -35,6 +36,24 @@ namespace MarsRover
         {
             return North;
         }
+
+        public override void Execute(IRover rover, Instruction instruction)
+        {
+            switch(instruction.GetInstruction())
+            {
+                case Instruction.TurnLeft:
+                    rover.SetFacing(West);
+                    break;
+                case Instruction.TurnRight:
+                    rover.SetFacing(East);
+                    break;
+                case Instruction.MoveForward:
+                    rover.MoveNorth();
+                    break;
+                default:
+                    throw new ArgumentException("Incorrect facing code.");
+            }
+        }
     }
 
     public class FacingEast : Facing
@@ -42,6 +61,24 @@ namespace MarsRover
         public override char GetFacing()
         {
             return East;
+        }
+
+        public override void Execute(IRover rover, Instruction instruction)
+        {
+            switch (instruction.GetInstruction())
+            {
+                case Instruction.TurnLeft:
+                    rover.SetFacing(North);
+                    break;
+                case Instruction.TurnRight:
+                    rover.SetFacing(South);
+                    break;
+                case Instruction.MoveForward:
+                    rover.MoveEast();
+                    break;
+                default:
+                    throw new ArgumentException("Incorrect facing code.");
+            }
         }
     }
 
@@ -51,6 +88,24 @@ namespace MarsRover
         {
             return South;
         }
+
+        public override void Execute(IRover rover, Instruction instruction)
+        {
+            switch (instruction.GetInstruction())
+            {
+                case Instruction.TurnLeft:
+                    rover.SetFacing(East);
+                    break;
+                case Instruction.TurnRight:
+                    rover.SetFacing(West);
+                    break;
+                case Instruction.MoveForward:
+                    rover.MoveSouth();
+                    break;
+                default:
+                    throw new ArgumentException("Incorrect facing code.");
+            }
+        }
     }
 
     public class FacingWest : Facing
@@ -58,6 +113,24 @@ namespace MarsRover
         public override char GetFacing()
         {
             return West;
+        }
+
+        public override void Execute(IRover rover, Instruction instruction)
+        {
+            switch (instruction.GetInstruction())
+            {
+                case Instruction.TurnLeft:
+                    rover.SetFacing(South);
+                    break;
+                case Instruction.TurnRight:
+                    rover.SetFacing(North);
+                    break;
+                case Instruction.MoveForward:
+                    rover.MoveWest();
+                    break;
+                default:
+                    throw new ArgumentException("Incorrect facing code.");
+            }
         }
     }
 }

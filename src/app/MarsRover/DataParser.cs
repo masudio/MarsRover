@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 
 namespace MarsRover
 {
     public static class DataParser
     {
-        public static string[] Parse(string s)
+        public static string[] Parse(string s, StreamReaderFactory streamReaderFactory)
         {
             var result = new List<string>();
-            using (var streamReader = new StreamReader(s))
+            using (var streamReader = streamReaderFactory.GetStreamReader(s))
             {
                 string line;
                 while (null != (line = streamReader.ReadLine()))
