@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataParserTests.cs" />
     <Compile Include="FacingEastTests.cs" />
     <Compile Include="FacingNorthTests.cs" />
     <Compile Include="FacingSouthTests.cs" />
